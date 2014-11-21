@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../th-animated/th-animated.html">
 
-<polymer-element name="th-countdown-reveal" extends="th-animated" attributes="startFrom color width height animationSpeed image" >
+<polymer-element name="th-countdown-reveal" extends="th-animated" attributes="startFrom countdownColor width height animationSpeed image revealTextColor">
 
   <template>
       <core-style ref="theme"></core-style>
@@ -21,7 +21,7 @@
           width: 100%;
           text-align: center;
           font-size: {{fontSize}};  
-          color: {{color}};
+          color: {{countdownColor}};
           -webkit-transition: opacity 0.4s ease;  
           -moz-transition:    opacity 0.4s ease;
           -ms-transition:     opacity 0.4s ease; 
@@ -41,12 +41,12 @@
 
       <!-- Inline styles are for mobile support --> 
       <div id="container" class="headline" style="width:{{computedWidth}}px;"> 
-        <span id="countdown" style="text-align: center; font-size: {{fontSize}};width:{{computedWidth}}px;">
+        <span id="countdown" style="text-align: center; font-size: {{fontSize}};width:{{computedWidth}}px; color: {{countdownColor}}">
           {{number}}
         </span>
         <div id="countdownImg" class="hidden" style="background: url({{image}}) center center no-repeat; background-size: cover;">
           <div id="content" class="hidden" style="display: table-cell; 
-         vertical-align: middle;">
+         vertical-align: middle; text-align: center; color:{{revealTextColor}}">
             <content></content>
           </div>
         </div>
@@ -58,7 +58,8 @@
 
       Polymer('th-countdown-reveal', {
         startFrom: 3,
-        color: '',
+        countdownColor: '',
+        revealTextColor: '',
         animationSpeed: 2, 
         ready: function(){
           var self = this;
