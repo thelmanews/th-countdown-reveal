@@ -79,39 +79,51 @@
           
         },
         zoomAnimation: function(elem, duration){
-          return new Animation(elem, [
+          
+          elem.animate([
                   { transform: "scale(0.0)", opacity: 0.0},
                   { opacity: 1},
                   {transform: "scale(1.0)", opacity: 0.0}
                 ],
                 { duration: duration, fill: "forwards" });
+                
+                /*          return new Animation(elem, [
+                  { transform: "scale(0.0)", opacity: 0.0},
+                  { opacity: 1},
+                  {transform: "scale(1.0)", opacity: 0.0}
+                ],
+                { duration: duration, fill: "forwards" });
+*/        
         },
 
         fadeOut: function(elem, duration){
-          return new Animation(elem, { opacity: 0}, {duration: duration, fill: "forwards"});
+       
+          elem.animate([{ opacity: 1},{ opacity: 0}], {duration: duration, fill: "forwards"})
+        
         },
         fadeIn: function(elem, duration){
-          return new Animation(elem, { opacity: 1}, {duration: duration, fill: "forwards"});
+          elem.animate([{ opacity: 0},{ opacity: 1}], {duration: duration, fill: "forwards"})
+        
         },
         reset: function() {
           var self = this;
           self.number = self.startFrom;
-          document.timeline.play(self.fadeIn(self.countdown, 500));
-          document.timeline.play(self.fadeOut(self.img, 500));
-          document.timeline.play(self.fadeOut(self.content, 500));
+          self.fadeIn(self.countdown, 500);
+          self.fadeOut(self.img, 500);
+          self.fadeOut(self.content, 500);
         },
         animate: function() {
           var self = this;
-          document.timeline.play(self.zoomAnimation(self.countdown, self.animationSpeed*1000));
+          self.zoomAnimation(self.countdown, self.animationSpeed*1000);
           var countdown = setInterval(function(){
             if (self.number > 1){
-              document.timeline.play(self.zoomAnimation(self.countdown, self.animationSpeed*1000));
+              self.zoomAnimation(self.countdown, self.animationSpeed*1000);
               self.number--;
 
             } else {
-              document.timeline.play(self.fadeOut(self.countdown, 1000));
-              document.timeline.play(self.fadeIn(self.content, 3000));
-              document.timeline.play(self.fadeIn(self.img, 3000));
+              self.fadeOut(self.countdown, 1000);
+              self.fadeIn(self.content, 3000);
+              self.fadeIn(self.img, 3000);
               
               clearInterval(countdown);
             }
